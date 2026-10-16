@@ -66,7 +66,7 @@ df = pd.get_dummies(df, drop_first = True)
 - Churn rate of different groups:
 <img width="1610" height="1011" alt="image" src="https://github.com/user-attachments/assets/9d524101-c6f2-4faf-830f-1dfe965ce6f8" />
 
-- Key takaways:
+- ***Key takaways:***
   - Insights:
     + New users tend to churn more
     + Users with lower Cashback Amount are more likely to churn more
@@ -75,3 +75,34 @@ df = pd.get_dummies(df, drop_first = True)
     + Focus on new customers and customers with last order > 1 month, launch cashback promotions for them to acquire/retain
     + Aware of customers with high number of addresses, limit the number of addresses can be added or implement verify identity in order to reduce the risk of fraud
 
+# V. Building prediction model
+- [See full notebook](https://github.com/DTN-492/ML_Churn_Predict_and_Segmentation/blob/main/notebooks/02_fit_model.ipynb)
+- In this section, I split the dataset into 3 parts: train/valid/test with 70/10/20 ratio
+- The dataset is quite imbalanced, so I adjust the class weight hyperparameters for better performance and avoid bias
+<img width="305" height="95" alt="image" src="https://github.com/user-attachments/assets/0a198249-832f-46b2-8fbb-a9c8c7fb7cac" />
+
+```python
+churn_wt = y_train.count()/y_train.sum() - 1 # y_train contains Target feature (Churn) only
+all_mod = {"Random Forest"  : RandomForestClassifier(random_state = 10, class_weight = {0:1, 1:churn_wt}),
+           "Hist Gradient Boost" : HistGradientBoostingClassifier(random_state = 10, class_weight = {0:1, 1:churn_wt}),
+           "XGBoost" : XGBClassifier(random_state = 10, scale_pos_weight = churn_wt)
+            }
+```
+- After fitting 3 models on the training set, here are performance metrics on the valid set:
+<img width="835" height="357" alt="image" src="https://github.com/user-attachments/assets/2e96cc05-49fe-40d1-b3a4-8be010a6a46b" />
+
+- The XGBoost model performs extremely well, so I tune this model using the Optuna library and here are the result on the test set:
+<img width="507" height="180" alt="image" src="https://github.com/user-attachments/assets/9e587134-c6cb-4661-a53c-6b2aa52d8b86" />
+<img width="459" height="469" alt="image" src="https://github.com/user-attachments/assets/cd08861e-b5b1-4cc5-a882-745378cda9c8" />
+
+- SHAP values:
+<img width="864" height="498" alt="image" src="https://github.com/user-attachments/assets/0d79f546-4871-423b-89ba-c9c6232eab2e" />
+
+- ***Key takaways:***
+  - Insights:
+    + New users tend to churn more
+    + Users with lower Cashback Amount are more likely to churn more
+    + Customers with high number of addresses & long time no order have higher chance of churn
+  - Suggestions:
+    + Focus on new customers and customers with last order > 1 month, launch cashback promotions for them to acquire/retain
+    + Aware of customers with high number of addresses, limit the number of addresses can be added or implement verify identity in order to reduce the risk of fraud
