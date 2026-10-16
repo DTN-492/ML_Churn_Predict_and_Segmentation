@@ -27,7 +27,7 @@ Labeled data of an eCommerce store, each row represents a single customer and th
 - CashbackAmount: Total cashback amount
 
 # III. Exploring the dataset
-- [See detail](https://github.com/DTN-492/ML_Churn_Predict_and_Segmentation/blob/main/notebooks/00_data_process.ipynb)
+- [See full notebook](https://github.com/DTN-492/ML_Churn_Predict_and_Segmentation/blob/main/notebooks/00_data_process.ipynb)
 - First look:
 <img width="661" height="507" alt="image" src="https://github.com/user-attachments/assets/b1c9f8a0-54e0-4288-87c6-cea462784458" />
 
@@ -47,7 +47,7 @@ Labeled data of an eCommerce store, each row represents a single customer and th
 <img width="587" height="317" alt="image" src="https://github.com/user-attachments/assets/4ba21f16-c32d-432b-bda5-9c168015946e" />
 
 # IV. Visualization
-- [See detail](https://github.com/DTN-492/ML_Churn_Predict_and_Segmentation/blob/main/notebooks/01_eda.ipynb)
+- [See full notebook](https://github.com/DTN-492/ML_Churn_Predict_and_Segmentation/blob/main/notebooks/01_eda.ipynb)
 - First, I used the one-hot encoding method to transform non-numeric features:
 ```python
 df = pd.get_dummies(df, drop_first = True)
@@ -55,7 +55,23 @@ df = pd.get_dummies(df, drop_first = True)
 - In order to determine which features are important, I fit 70% of the dataset with the Random Forest model and extract features with importance score above 0.05
   + Model performance on test set:
 <img width="500" height="186" alt="image" src="https://github.com/user-attachments/assets/574e8eac-2dcc-4b3f-bef0-5dccc5cada99" />
+
   + Importance score:
 <img width="1012" height="532" alt="image" src="https://github.com/user-attachments/assets/0905436f-1b1e-41fe-af2f-5f86eaa23fcf" />
 
+- Compare distribution within 2 groups: Churn and No churn with important features above
+<img width="1511" height="811" alt="image" src="https://github.com/user-attachments/assets/5f2e377b-ecc5-4f30-8dad-b7fabfa26a94" />
+<img width="567" height="433" alt="image" src="https://github.com/user-attachments/assets/85f7ec34-7abb-4bad-8a63-8f28599d3cd8" />
+
+- Churn rate of different groups:
+<img width="1610" height="1011" alt="image" src="https://github.com/user-attachments/assets/9d524101-c6f2-4faf-830f-1dfe965ce6f8" />
+
+- Key takaways:
+  - Insights:
+    + New users tend to churn more
+    + Users with lower Cashback Amount are more likely to churn more
+    + Customers with high number of addresses & long time no order have higher chance of churn
+  - Suggestions:
+    + Focus on new customers and customers with last order > 1 month, launch cashback promotions for them to acquire/retain
+    + Aware of customers with high number of addresses, limit the number of addresses can be added or implement verify identity in order to reduce the risk of fraud
 
