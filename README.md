@@ -6,7 +6,7 @@ This project uses two machine learning approaches for different purposes: Superv
 # II. Dataset
 Labeled data of an eCommerce store, each row represents a single customer and their information:
 - CustomerID: Unique customer ID
-- Churn: 1: Churn flag (1:Churned; 0:No churn)
+- Churn: Churn flag (1:Churned; 0:No churn)
 - Tenure: Tenure of customer in organization
 - PreferredLoginDevice: Preferred login device of customer
 - CityTier: Region code
