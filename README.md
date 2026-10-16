@@ -114,3 +114,18 @@ all_mod = {"Random Forest"  : RandomForestClassifier(random_state = 10, class_we
 <img width="851" height="469" alt="image" src="https://github.com/user-attachments/assets/94962db7-5ecf-4105-aa65-b54b851f6cda" />
 
 -> We choose k = 2
+- Compare 2 groups:
+<img width="1511" height="1011" alt="image" src="https://github.com/user-attachments/assets/6737c1eb-1c4e-4504-b36c-015aead837fd" />
+<img width="1466" height="836" alt="image" src="https://github.com/user-attachments/assets/647f8a97-f8c3-43b3-9a42-86d0ef55d9ca" />
+
+- Cluster proportion: 1: 73.5%; 0: 26.5%
+- Key differences between 2 clusters:
+  + Tenure (cluster 1 has lower Tenure)
+  + Marital status (cluster 1 has lower Married rate)
+- Visualize key features:
+<img width="1152" height="602" alt="image" src="https://github.com/user-attachments/assets/0f5a32df-b2c8-4305-9b17-5ca9cb1873dd" />
+
+- There are no significant differences or insights when combining Tenure & Marital status
+- Ideal churned customer segmentation:
+  + Segment 1: low tenure (<7)
+  + Segment 2: moderate & high tenure (≥7)
