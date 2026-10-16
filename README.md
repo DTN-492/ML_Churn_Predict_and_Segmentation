@@ -27,6 +27,7 @@ Labeled data of an eCommerce store, each row represents a single customer and th
 - CashbackAmount: Total cashback amount
 
 # III. Exploring the dataset
+- [See detail](https://github.com/DTN-492/ML_Churn_Predict_and_Segmentation/blob/main/notebooks/00_data_process.ipynb)
 - First look:
 <img width="661" height="507" alt="image" src="https://github.com/user-attachments/assets/b1c9f8a0-54e0-4288-87c6-cea462784458" />
 
@@ -39,12 +40,22 @@ Labeled data of an eCommerce store, each row represents a single customer and th
 - NA values map:
 <img width="1292" height="592" alt="image" src="https://github.com/user-attachments/assets/71aebe7a-8fd8-4313-aef1-1d0b2ab1d64c" />
 
-# IV. Cleaning the dataset
 - With numeric columns, I replaced missing values with the column median
 <img width="690" height="510" alt="image" src="https://github.com/user-attachments/assets/16bd5252-b786-49e8-bc9d-e4468ab7ecc7" />
 
 - With non-numeric columns, I replace values with similar meaning into one single value only (ex: "CC" and "Credit Card" -> "CC")
 <img width="587" height="317" alt="image" src="https://github.com/user-attachments/assets/4ba21f16-c32d-432b-bda5-9c168015946e" />
 
+# IV. Visualization
+- [See detail](https://github.com/DTN-492/ML_Churn_Predict_and_Segmentation/blob/main/notebooks/01_eda.ipynb)
+- First, I used the one-hot encoding method to transform non-numeric features:
+```python
+df = pd.get_dummies(df, drop_first = True)
+```
+- In order to determine which features are important, I fit 70% of the dataset with the Random Forest model and extract features with importance score above 0.05
+  + Model performance on test set:
+<img width="500" height="186" alt="image" src="https://github.com/user-attachments/assets/574e8eac-2dcc-4b3f-bef0-5dccc5cada99" />
+  + Importance score:
+<img width="1012" height="532" alt="image" src="https://github.com/user-attachments/assets/0905436f-1b1e-41fe-af2f-5f86eaa23fcf" />
 
 
