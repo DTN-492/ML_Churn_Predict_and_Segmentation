@@ -91,18 +91,26 @@ all_mod = {"Random Forest"  : RandomForestClassifier(random_state = 10, class_we
 - After fitting 3 models on the training set, here are performance metrics on the valid set:
 <img width="835" height="357" alt="image" src="https://github.com/user-attachments/assets/2e96cc05-49fe-40d1-b3a4-8be010a6a46b" />
 
-- The XGBoost model performs extremely well, so I tune this model using the Optuna library and here are the result on the test set:
+- The XGBoost model performs extremely well, so I tune this model using the Optuna library and here are the result on the test set after tuning:
 <img width="507" height="180" alt="image" src="https://github.com/user-attachments/assets/9e587134-c6cb-4661-a53c-6b2aa52d8b86" />
+
+- ROC curves:
 <img width="459" height="469" alt="image" src="https://github.com/user-attachments/assets/cd08861e-b5b1-4cc5-a882-745378cda9c8" />
 
 - SHAP values:
 <img width="864" height="498" alt="image" src="https://github.com/user-attachments/assets/0d79f546-4871-423b-89ba-c9c6232eab2e" />
 
 - ***Key takaways:***
-  - Insights:
-    + New users tend to churn more
-    + Users with lower Cashback Amount are more likely to churn more
-    + Customers with high number of addresses & long time no order have higher chance of churn
-  - Suggestions:
-    + Focus on new customers and customers with last order > 1 month, launch cashback promotions for them to acquire/retain
-    + Aware of customers with high number of addresses, limit the number of addresses can be added or implement verify identity in order to reduce the risk of fraud
+  + As usual, XGBoost work extremely well on tabular dataset
+  + Base on SHAP values, we can easily explain machine learning predictions by measuring how much each input feature pushes the model's output up or down
+
+# VI. Segmentation
+- [See full notebook](https://github.com/DTN-492/ML_Churn_Predict_and_Segmentation/blob/main/notebooks/03_clustering.ipynb)
+- In this section, I use K-means model to separate Churned customer
+- To reduce the dimension, I use PCA with 4 components (explain ~ 82% of variance)
+<img width="556" height="413" alt="image" src="https://github.com/user-attachments/assets/ded4b5ed-2ddb-4ddd-ae64-9805f595814f" />
+
+- Since K-means model sensitive to outliers, scaling is an important preprocessing step, and here is the WCSS chart after fitting the K-means model on the scaled PCA dataset:
+<img width="851" height="469" alt="image" src="https://github.com/user-attachments/assets/94962db7-5ecf-4105-aa65-b54b851f6cda" />
+
+-> We choose k = 2
