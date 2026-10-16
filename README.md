@@ -1,7 +1,9 @@
 # [Machine Learning] Churn Prediction & Segmentation
 
 # I. Introduction
-This project uses two machine learning approaches for different purposes: Supervised learning to predict which customers are likely to churn, and Unsupervised learning to segment customers who have churned.
+This project uses two machine learning approaches for different purposes: 
+- Supervised learning to predict which customers are likely to churn
+- Unsupervised learning to segment customers who have churned
 
 # II. Dataset
 Labeled data of an eCommerce store, each row represents a single customer and their information:
