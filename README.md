@@ -29,14 +29,22 @@ Labeled data of an eCommerce store, each row represents a single customer and th
 # III. Exploring the dataset
 - First look:
 <img width="661" height="507" alt="image" src="https://github.com/user-attachments/assets/b1c9f8a0-54e0-4288-87c6-cea462784458" />
+
 - Numeric columns summary:
 <img width="667" height="672" alt="image" src="https://github.com/user-attachments/assets/71efdd16-fb0c-4d31-b3b3-0c384bfad93b" />
+
 - Non-numeric columns summary:
 <img width="755" height="312" alt="image" src="https://github.com/user-attachments/assets/d7a09ced-6a3f-434c-a4d1-b839ed8aa45f" />
+
 - NA values map:
 <img width="1292" height="592" alt="image" src="https://github.com/user-attachments/assets/71aebe7a-8fd8-4313-aef1-1d0b2ab1d64c" />
+
 # IV. Cleaning the dataset
-- With numeric columns, I replaced missing values with columns median
-- With non-numeric columns, I 
+- With numeric columns, I replaced missing values with the column median
+<img width="690" height="510" alt="image" src="https://github.com/user-attachments/assets/16bd5252-b786-49e8-bc9d-e4468ab7ecc7" />
+
+- With non-numeric columns, I replace values with similar meaning into one single value only (ex: "CC" and "Credit Card" -> "CC")
+<img width="587" height="317" alt="image" src="https://github.com/user-attachments/assets/4ba21f16-c32d-432b-bda5-9c168015946e" />
+
 
 
