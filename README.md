@@ -42,12 +42,10 @@ Labeled data of an eCommerce store, each row represents a single customer and th
 - NA values map:
 <img width="1292" height="592" alt="image" src="https://github.com/user-attachments/assets/71aebe7a-8fd8-4313-aef1-1d0b2ab1d64c" />
 
-- With numeric columns, I replaced missing values with the column median
-<img width="690" height="510" alt="image" src="https://github.com/user-attachments/assets/16bd5252-b786-49e8-bc9d-e4468ab7ecc7" />
-
 - With non-numeric columns, I replace values with similar meaning into one single value only (ex: "CC" and "Credit Card" -> "CC")
 <img width="587" height="317" alt="image" src="https://github.com/user-attachments/assets/4ba21f16-c32d-432b-bda5-9c168015946e" />
 
+- With numeric columns, handling missing values will be executed right before fitting ML models, filling missing values now would make visualization less accurate
 # IV. Visualization
 - [See full notebook](https://github.com/DTN-492/ML_Churn_Predict_and_Segmentation/blob/main/notebooks/01_eda.ipynb)
 - First, I used the one-hot encoding method to transform non-numeric features:
@@ -56,17 +54,17 @@ df = pd.get_dummies(df, drop_first = True)
 ```
 - In order to determine which features are important, I fit 70% of the dataset with the Random Forest model and extract features with importance score above 0.05
   + Model performance on test set:
-<img width="500" height="186" alt="image" src="https://github.com/user-attachments/assets/574e8eac-2dcc-4b3f-bef0-5dccc5cada99" />
+<img width="505" height="190" alt="image" src="https://github.com/user-attachments/assets/fe9bba56-233b-42a3-adf8-53bc6fb8fb3f" />
 
   + Importance score:
-<img width="1012" height="532" alt="image" src="https://github.com/user-attachments/assets/0905436f-1b1e-41fe-af2f-5f86eaa23fcf" />
+<img width="816" height="432" alt="image" src="https://github.com/user-attachments/assets/f87684c7-5345-48a0-85dc-ae30c351b10d" />
 
 - Compare distribution within 2 groups: Churn and No churn with important features above
-<img width="1511" height="811" alt="image" src="https://github.com/user-attachments/assets/5f2e377b-ecc5-4f30-8dad-b7fabfa26a94" />
-<img width="567" height="433" alt="image" src="https://github.com/user-attachments/assets/85f7ec34-7abb-4bad-8a63-8f28599d3cd8" />
+<img width="1511" height="811" alt="image" src="https://github.com/user-attachments/assets/5db8e540-44ab-4b2c-8109-8fe5962303a2" />
+<img width="567" height="433" alt="image" src="https://github.com/user-attachments/assets/1a37eed7-2316-411f-a786-dc454659a6fa" />
 
 - Churn rate of different groups:
-<img width="1610" height="1011" alt="image" src="https://github.com/user-attachments/assets/9d524101-c6f2-4faf-830f-1dfe965ce6f8" />
+<img width="1610" height="1011" alt="image" src="https://github.com/user-attachments/assets/ce8d1787-3fca-4ada-95c6-cde3f9554102" />
 
 - ***Key takaways:***
   - Insights:
@@ -91,16 +89,16 @@ all_mod = {"Random Forest"  : RandomForestClassifier(random_state = 10, class_we
             }
 ```
 - After fitting 3 models on the training set, here are performance metrics on the valid set:
-<img width="835" height="357" alt="image" src="https://github.com/user-attachments/assets/2e96cc05-49fe-40d1-b3a4-8be010a6a46b" />
+<img width="716" height="434" alt="image" src="https://github.com/user-attachments/assets/39150cf7-b8ca-4079-8d8c-83a8ffaee9fb" />
 
 - The XGBoost model performs extremely well, so I tune this model using the Optuna library and here are the result on the test set after tuning:
-<img width="507" height="180" alt="image" src="https://github.com/user-attachments/assets/9e587134-c6cb-4661-a53c-6b2aa52d8b86" />
+<img width="507" height="187" alt="image" src="https://github.com/user-attachments/assets/bb26c05c-02f1-4977-b9d9-f3fd96c9df38" />
 
 - ROC curves:
-<img width="459" height="469" alt="image" src="https://github.com/user-attachments/assets/cd08861e-b5b1-4cc5-a882-745378cda9c8" />
+<img width="459" height="469" alt="image" src="https://github.com/user-attachments/assets/b116d6e6-2d2c-42e4-b3d3-79481886f410" />
 
 - SHAP values:
-<img width="864" height="498" alt="image" src="https://github.com/user-attachments/assets/0d79f546-4871-423b-89ba-c9c6232eab2e" />
+<img width="914" height="498" alt="image" src="https://github.com/user-attachments/assets/f99a332e-c1da-42c7-aaa2-794c97d4b8e2" />
 
 - ***Key takaways:***
   + As usual, XGBoost work extremely well on tabular dataset
@@ -109,25 +107,10 @@ all_mod = {"Random Forest"  : RandomForestClassifier(random_state = 10, class_we
 # VI. Segmentation
 - [See full notebook](https://github.com/DTN-492/ML_Churn_Predict_and_Segmentation/blob/main/notebooks/03_clustering.ipynb)
 - In this section, I use K-means model to separate Churned customer
-- To reduce the dimension, I use PCA with 4 components (explain ~ 82% of variance)
-<img width="556" height="413" alt="image" src="https://github.com/user-attachments/assets/ded4b5ed-2ddb-4ddd-ae64-9805f595814f" />
+- To reduce the dimension, I use PCA with 9 components (explain ~ 80% of variance)
+<img width="556" height="413" alt="image" src="https://github.com/user-attachments/assets/6e5d0696-304e-4437-9f10-49f9a2cb5e29" />
 
 - Since K-means model sensitive to outliers, scaling is an important preprocessing step, and here is the WCSS chart after fitting the K-means model on the scaled PCA dataset:
-<img width="851" height="469" alt="image" src="https://github.com/user-attachments/assets/94962db7-5ecf-4105-aa65-b54b851f6cda" />
+<img width="1055" height="580" alt="image" src="https://github.com/user-attachments/assets/d81303b2-1cf7-4483-bca6-a15dcb19f4f9" />
 
--> We choose k = 2
-- Compare 2 groups:
-<img width="1511" height="1011" alt="image" src="https://github.com/user-attachments/assets/6737c1eb-1c4e-4504-b36c-015aead837fd" />
-<img width="1466" height="836" alt="image" src="https://github.com/user-attachments/assets/647f8a97-f8c3-43b3-9a42-86d0ef55d9ca" />
-
-- Cluster proportion: 1: 73.5%; 0: 26.5%
-- Key differences between 2 clusters:
-  + Tenure (cluster 1 has lower Tenure)
-  + Marital status (cluster 1 has lower Married rate)
-- Visualize key features:
-<img width="1152" height="602" alt="image" src="https://github.com/user-attachments/assets/0f5a32df-b2c8-4305-9b17-5ca9cb1873dd" />
-
-- There are no significant differences or insights when combining Tenure & Marital status
-- Ideal churned customer segmentation:
-  + Segment 1: low tenure (<7)
-  + Segment 2: moderate & high tenure (≥7)
+-> There is no optimal value for k, so segmentation churned customers is not necessary
